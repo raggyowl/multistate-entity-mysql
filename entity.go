@@ -24,6 +24,7 @@ type entity struct {
 	table  *mysql.BaseModel
 	field  string
 	filter model.IExpression
+	id     interface{}
 }
 
 func New(table *mysql.BaseModel, field string, filter FilterFunc) *Fabric {
@@ -39,6 +40,7 @@ func (f *Fabric) Get(id interface{}) *entity {
 		table:  f.table,
 		field:  f.field,
 		filter: f.filter(id),
+		id:     id,
 	}
 }
 
@@ -77,4 +79,8 @@ func (e *entity) EndAction(ctx context.Context, err error) error {
 
 	_, err = e.table.GetDb().Commit(ctx)
 	return err
+}
+
+func (e *entity) GetId() interface{} {
+	return e.id
 }
