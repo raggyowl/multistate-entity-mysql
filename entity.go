@@ -84,3 +84,7 @@ func (e *entity) EndAction(ctx context.Context, err error) error {
 func (e *entity) GetId() interface{} {
 	return e.id
 }
+
+func (e *entity) GetTx() interface{} {
+	panic("not implemented")
+}
